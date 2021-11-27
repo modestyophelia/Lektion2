@@ -8,17 +8,33 @@ export default function App() {
   const [boxColor1, setBoxColor1] = useState("red");
   const [boxColor2, setBoxColor2] = useState("red");
   const [boxColor3, setBoxColor3] = useState("red");
+  var [count, setCount] = useState(0);
 
-  function setColorFunction1(boxColor1) {
+  function setColorFunction1(boxColor1, count) {
     setBoxColor1(boxColor1);
+    if (boxColor1 == "green") {
+      setCount((count += 1));
+    } else if (boxColor1 == "red") {
+      setCount((count -= 1));
+    }
   }
 
-  function setColorFunction2(boxColor2) {
+  function setColorFunction2(boxColor2, count) {
     setBoxColor2(boxColor2);
+    if (boxColor2 == "green") {
+      setCount((count += 1));
+    } else if (boxColor2 == "red") {
+      setCount((count -= 1));
+    }
   }
 
-  function setColorFunction3(boxColor3) {
+  function setColorFunction3(boxColor3, count) {
     setBoxColor3(boxColor3);
+    if (boxColor3 == "green") {
+      setCount((count += 1));
+    } else if (boxColor3 == "red") {
+      setCount((count -= 1));
+    }
   }
 
   return (
@@ -31,9 +47,7 @@ export default function App() {
 
         <Text style={styles.text}>SmartHome</Text>
       </View>
-
       <Text style={styles.text}>Rooms</Text>
-
       <View style={styles.rooms}>
         <View style={styles.roomsContainer}>
           <View style={styles.roomsbackground}>
@@ -58,76 +72,89 @@ export default function App() {
           </View>
         </View>
       </View>
-
       <Text style={styles.text}>Devices</Text>
-
       <View style={{ width: "100%" }}>
         <View style={styles.devices}>
           <View style={styles.yellowBox}>
             <View style={styles.livingRoom}>
-              <View style={styles.box}></View>
+              <View
+                style={{
+                  padding: 10,
+                  marginHorizontal: 10,
+                  backgroundColor: boxColor1,
+                }}
+              />
               <Text>Living Room Lamp</Text>
             </View>
 
             <View>
               <Button
                 title="On"
-                onPress={() => setColorFunction1("green")}
+                onPress={() => setColorFunction1("green", count)}
               ></Button>
               <Button
                 title="Off"
-                onPress={() => setColorFunction1("red")}
+                onPress={() => setColorFunction1("red", count)}
               ></Button>
             </View>
           </View>
         </View>
       </View>
-
       <View style={{ width: "100%" }}>
         <View style={styles.devices}>
           <View style={styles.yellowBox}>
             <View style={styles.livingRoom}>
-              <View style={styles.box}></View>
+              <View
+                style={{
+                  padding: 10,
+                  marginHorizontal: 10,
+                  backgroundColor: boxColor2,
+                }}
+              />
               <Text>Heater</Text>
             </View>
 
             <View>
               <Button
                 title="On"
-                onPress={() => setColorFunction1("green")}
+                onPress={() => setColorFunction2("green", count)}
               ></Button>
               <Button
                 title="Off"
-                onPress={() => setColorFunction1("red")}
+                onPress={() => setColorFunction2("red", count)}
               ></Button>
             </View>
           </View>
         </View>
       </View>
-
       <View style={{ width: "100%" }}>
         <View style={styles.devices}>
           <View style={styles.yellowBox}>
             <View style={styles.livingRoom}>
-              <View style={styles.box}></View>
-              <Text>TV</Text>
+              <View
+                style={{
+                  padding: 10,
+                  marginHorizontal: 10,
+                  backgroundColor: boxColor3,
+                }}
+              />
+              <Text>Kitchen</Text>
             </View>
 
             <View>
               <Button
                 title="On"
-                onPress={() => setColorFunction1("green")}
+                onPress={() => setColorFunction3("green", count)}
               ></Button>
               <Button
                 title="Off"
-                onPress={() => setColorFunction1("red")}
+                onPress={() => setColorFunction3("red", count)}
               ></Button>
             </View>
           </View>
         </View>
       </View>
-
-      <Text>Devices on: </Text>
+      <Text style={styles.text}>Total devices on: {count}</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -163,7 +190,7 @@ const styles = StyleSheet.create({
   },
 
   roomsbackground: {
-    backgroundColor: "purple",
+    backgroundColor: "lightblue",
     padding: 12,
   },
 
@@ -190,11 +217,5 @@ const styles = StyleSheet.create({
     width: "87%",
     flexDirection: "row",
     alignItems: "center",
-  },
-
-  box: {
-    padding: 10,
-    marginHorizontal: 10,
-    backgroundColor: "red",
   },
 });
